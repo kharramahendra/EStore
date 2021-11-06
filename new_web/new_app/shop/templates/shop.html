@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title%}Shop{% endblock %}
+
+{% block head %}
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+<style>
+    .new_btn {
+        background-color: #72052e;
+        color:aliceblue;
+        transition: all 0.4s;
+    }
+    .new_btn2 {
+        background-color: aliceblue;
+        color:#72052e;
+        transition: all 0.4s;
+    }
+    .new_btn:hover {
+        background-color: aliceblue;
+        color:#72052e;
+    }
+    .new_btn2:hover {
+        background-color: #72052e;
+        color:aliceblue;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <img class="object-cover object-center rounded" alt="hero" src="/static/images/shop.jpg">
+      </div>
+      <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Before they sold out
+          <br class="hidden lg:inline-block">readymade gluten
+        </h1>
+        <p class="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
+        <div class="flex justify-center">
+          <button class="inline-flex border-0 py-2 px-6 focus:outline-none new_btn rounded text-lg">Button</button>
+          <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none new_btn2 rounded text-lg">Button</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+<!-- Product -->
+<div class="bg0 m-t-23 p-b-140">
+    <div class="container">
+        <div class="flex-w flex-sb-m p-b-52">
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+                    All Products
+                </button>
+                {% for cat in cats %}
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" ><a href="/shop/{{cat}}">{{cat}}</a>
+                </button>
+                {% endfor %}
+            </div>
+
+            
+        </div>
+
+        <div class="row isotope-grid">
+        {% for i in allProds %}
+        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+            <!-- Block2 -->
+            <div class="block2">
+                <div class="block2-pic hov-img0">
+                    <img src="/media/{{i.image}}" alt="IMG-PRODUCT">
+
+                    <a href="/product/{{i.product_id}}" class="block2-btn flex-c-m btn-special2">
+                        Quick View
+                    </a>
+                </div>
+
+                <div class="block2-txt flex-w flex-t p-t-14">
+                    <div class="block2-txt-child1 flex-col-l ">
+                        <a href="/product/{{i.product_id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            {{i.product_name}}
+                        </a>
+
+                        <span class="stext-105 cl3">
+                            ₹{{i.price}}
+                        </span>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        <nav class="blog-pagination justify-content-center d-flex">
+            <ul class="pagination">
+                {% if allProds.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ allProds.previous_page_number }}" class="page-link" aria-label="Previous" style="color:#72052e; border: #72052e;">
+                        <i class="zmdi zmdi-long-arrow-left"></i> Previous 
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if allProds.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ allProds.next_page_number }}" class="page-link" aria-label="Next" style="color:#72052e; border: #72052e;">
+                         Next <i class="zmdi zmdi-long-arrow-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+		</div>
+	</div>
+
+
+
+{% endblock %}

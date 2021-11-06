@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title%}Home{% endblock %}
+{% load cart %}
+{% block head %}
+
+
+<link rel="stylesheet" type="text/css" href="/static/css/slider.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Slider -->
+<section class="section-slide">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1" style="background-image: url(/static/images/suit.jpg);">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Women Collection 2018
+                            </span>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                NEW SEASON
+                            </h2>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m btn-special">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1" style="background-image: url(static/images/coat.jpg);">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Men New-Season
+                            </span>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                Jackets & Coats
+                            </h2>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
+                            <a href="product.html" class="flex-c-m btn-special">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1" style="background-image: url(static/images/shoes.jpg);">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Men Collection 2018
+                            </span>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                New arrivals
+                            </h2>
+                        </div>
+                            
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m btn-special">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="viewed" style="margin-top: 20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="bbb_viewed_title_container">
+                    <h3 class="bbb_viewed_title" style="color:#ad0c4a">Hot Deals</h3>
+                    <div class="bbb_viewed_nav_container">
+                        <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                        <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+                <div class="bbb_viewed_slider_container">
+                    <div class="owl-carousel owl-theme bbb_viewed_slider">
+						{% for pr in sliPro %}
+                        <div class="owl-item">
+                            <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="bbb_viewed_image"><img src="/media/{{pr.image}}" alt=""></div>
+                                <div class="bbb_viewed_content text-center">
+                                    <div class="bbb_viewed_price">₹{{pr.price}}<span>₹{{pr.price|plus}}</span></div>
+                                    <div class="bbb_viewed_name"><a href="/product/{{pr.product_id}}">
+										{{pr.product_name}}
+									</a></div>
+                                </div>
+                               
+                            </div>
+                        </div>
+						{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+	<!-- Product -->
+	<section class="bg0 p-t-23 p-b-140">
+		<div class="container">
+			<div class="p-b-10">
+				<h3 class="ltext-103 cl5">
+					Trending
+				</h3>
+			</div>
+
+			
+			<div class="row isotope-grid">
+                {% for product in allProds %}
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+					<!-- Block2 -->
+					<div class="block2">
+						<div class="block2-pic hov-img0">
+							<img src="/media/{{product.image}}" alt="IMG-PRODUCT">
+
+							<a href="/product/{{product.product_id}}" class="block2-btn  flex-c-m btn-special2">
+								Quick View
+							</a>
+						</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="/product/{{product.product_id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									{{product.product_name}}
+								</a>
+
+								<span class="stext-105 cl3">
+									₹{{product.price}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+            </div>
+            <!-- Load more -->
+			<div class="flex-c-m flex-w w-full p-t-45">
+				<a href="/shop/trending" class="flex-c-m stext-101 btn-special">
+					More
+				</a>
+			</div>
+		</div>
+	</section>
+
+
+
+    
+
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script>
+	$(document).ready(function()
+{
+
+
+if($('.bbb_viewed_slider').length)
+{
+var viewedSlider = $('.bbb_viewed_slider');
+
+viewedSlider.owlCarousel(
+{
+loop:true,
+margin:30,
+autoplay:true,
+autoplayTimeout:6000,
+nav:false,
+dots:false,
+responsive:
+{
+0:{items:1},
+575:{items:2},
+768:{items:3},
+991:{items:4},
+1199:{items:6}
+}
+});
+
+if($('.bbb_viewed_prev').length)
+{
+var prev = $('.bbb_viewed_prev');
+prev.on('click', function()
+{
+viewedSlider.trigger('prev.owl.carousel');
+});
+}
+
+if($('.bbb_viewed_next').length)
+{
+var next = $('.bbb_viewed_next');
+next.on('click', function()
+{
+viewedSlider.trigger('next.owl.carousel');
+});
+}
+}
+
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load cart %}
+	{% load socialaccount %}
+	{% providers_media_js %}
+	<title>{% block title%} {% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="icon" type="image/png" href="/static/images/icons/esf.png"/>
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/MagnificPopup/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Yesteryear&display=swap" rel="stylesheet">
+	<style>
+
+.btn-logo {
+  color:#fff;
+  border-radius: 15px 2px 15px 2px;
+  background-color: #ff0867;
+  font-family: 'Yesteryear', cursive;
+  
+  font-size: 15px;
+  line-height: 1.466667;
+  width: 90px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border:#ff0867;
+  
+  margin-right: 0px;
+  height: 30px;
+    transition: all 0.4s;
+}
+
+.btn-logo:hover {
+  color:#fff;
+  background-color: #ff0867;
+  text-decoration: none;
+
+}
+
+		.btn-special {
+  color:#fff;
+  border-radius: 4px;
+  background-color: #ad0c4a;
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+  border:#ad0c4a;
+  min-width: 161px;
+  height: 46px;
+    transition: all 0.4s;
+}
+
+
+.btn-special:hover {
+  color:#fff;
+  border-radius: 2px 15px 2px 15px;
+  background-color: #72052e;
+  border: #72052e;
+  text-decoration: none;
+}
+.btn-special2 {
+  color:#fff;
+  margin-left: 2px;
+  margin-right:2px ;
+  margin-top: 2px;
+  border-radius: 4px;
+  background-color: #ad0c4a;
+  
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.466667;
+  text-transform: uppercase;
+  min-width: 120px;
+  height: 40px;
+    transition: all 0.4s;
+}
+.btn-special2:hover {
+  color:#fff;
+  background-color: #72052e;
+  text-decoration: none;
+  
+
+}
+	</style>
+	{% block head %}{% endblock %}
+<!--===============================================================================================-->
+
+</head>
+<body class="animsition">
+<!-- Header -->
+<header>
+    <!-- Header desktop -->
+    <div class="container-menu-desktop">
+        
+
+        <div class="wrap-menu-desktop">
+            <nav class="limiter-menu-desktop container">
+                
+                <!-- Logo desktop -->		
+                <a href="/" class="logo">
+					<a href="/" class="flex-c-m btn-logo">
+						E Store
+					</a>
+
+                </a>
+
+                <!-- Menu desktop -->
+                <div class="menu-desktop">
+                    <ul class="main-menu">
+                        <li class="hov-cl1">
+                            <a href="/" style="color: #ad0c4a;">Home</a>
+                        </li>
+
+                        <li class="lnk">
+                            <a class="lnk" href="/shop" style="color: #ad0c4a;">Shop</a>
+                        </li>
+
+
+                        <li>
+                            <a href="/about/" style="color: #ad0c4a;">About</a>
+                        </li>
+
+                        <li>
+                            <a href="/contact/" style="color: #ad0c4a;">Contact</a>
+                        </li>
+                    </ul>
+                </div>	
+
+                <!-- Icon header -->
+                <div class="wrap-icon-header flex-w flex-r-m">
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                        <i class="zmdi zmdi-search"></i>
+                    </div>
+
+                    <div id="cart" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{request.session.cart|count}}"} >
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
+
+					{% if not user.is_authenticated %}
+					<a href="{% provider_login_url "google" %}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 ">
+                        <i class="zmdi zmdi-account"></i>
+                    </a>
+					{% else %}
+                    <a href="/profile" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 ">
+                        <i class="zmdi zmdi-account"></i>
+                    </a>
+					{% endif %}
+                </div>
+            </nav>
+        </div>	
+    </div>
+
+    <!-- Header Mobile -->
+    <div class="wrap-header-mobile" style="padding: 5px;">
+        <!-- Logo moblie -->		
+        <div class="logo-mobile">
+			<a href="/" class="flex-c-m btn-logo">
+				E Store
+			</a>
+            
+        </div>
+
+        <!-- Icon header -->
+        <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+			
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                <i class="zmdi zmdi-search"></i>
+            </div>
+			
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="{{request.session.cart|count}}">
+                <i class="zmdi zmdi-shopping-cart"></i>
+            </div>
+			
+
+            
+			{% if not user.is_authenticated %}
+			<a href="{% provider_login_url "google" %}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 ">
+				<i class="zmdi zmdi-account"></i>
+			</a>
+			{% else %}
+			<a href="/profile" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 ">
+				<i class="zmdi zmdi-account"></i>
+			</a>
+			{% endif %}
+        </div>
+
+        <!-- Button show menu -->
+        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </div>
+    </div>
+
+
+    <!-- Menu Mobile -->
+    <div class="menu-mobile">
+
+        <ul class="main-menu-m">
+            <li>
+                <a class="hov-cl3" href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/shop/" class="hov-cl3">Shop</a>
+            </li>
+            <li>
+                <a class="hov-cl3" href="/about/">About</a>
+            </li>
+
+            <li>
+                <a class="hov-cl3" href="/contact/">Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal Search -->
+    <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+        <div class="container-search-header">
+            <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                <img src="/static/images/icons/icon-close2.png" alt="CLOSE">
+            </button>
+
+            <form class="wrap-search-header flex-w p-l-15" action="/search/" method="POST">
+                {% csrf_token %}
+				<button class="flex-c-m trans-04">
+                    <i class="zmdi zmdi-search"></i>
+                </button>
+                <input class="plh3" type="text" name="query" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</header>
+
+<!-- Cart -->
+<div class="wrap-header-cart js-panel-cart" id='cartitems'>
+    <div class="s-full js-hide-cart"></div>
+
+    <div class="header-cart flex-col-l p-l-65 p-r-25">
+        <div class="header-cart-title flex-w flex-sb-m p-b-8">
+            <span class="mtext-103 cl2">
+                Your Cart
+            </span>
+
+            <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                <i class="zmdi zmdi-close"></i>
+            </div>
+        </div>
+		
+        {% if not request.session.cart %}
+		no items in cart
+		{% else %}
+        <div class="header-cart-content flex-w js-pscroll">
+			
+            <ul class="header-cart-wrapitem w-full">
+
+
+				{% for i in request.session.cart.values %}
+                <li class="header-cart-item flex-w flex-t m-b-12">
+                    <div class="header-cart-item-img">
+                        <img src="/media/{{i.3}}" alt="IMG">
+                    </div>
+
+                    <div class="header-cart-item-txt p-t-8">
+                        <a href="/product/{{i.6}}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                            {{ i.5 }}
+                        </a>
+
+                        <span class="header-cart-item-info">
+                            {{i.0}} x ₹{{i.4}}
+                        </span>
+                    </div>
+                </li>
+				{% endfor %}
+
+                
+            </ul>
+            
+            <div class="w-full">
+				
+                <div class="header-cart-total w-full p-tb-40">
+                    Total: ₹{{request.session.cart|total}}
+                </div>
+				
+
+                <div class="header-cart-buttons flex-w w-full">
+					
+					<a href="/viewcart" class="flex-c-m btn-special2">
+                        View Cart
+                    </a>
+
+                    <a href="/clearcart" class="flex-c-m btn-special2">
+                        Clear Cart
+                    </a>
+                </div>
+            </div>
+        </div>{% endif %}
+    </div>
+</div>
+
+
+{% block body %} {% endblock %}
+
+
+
+
+
+
+
+
+	<!-- Footer -->
+	<footer class="bg10 p-t-75 p-b-32">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Categories
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="/shop/men" class="stext-107 cl7 hov-cl1 trans-04">
+								Men
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="/shop/women" class="stext-107 cl7 hov-cl1 trans-04">
+								Women
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Links
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="/shop/" class="stext-107 cl7 hov-cl1 trans-04">
+								Shop
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="/profile/" class="stext-107 cl7 hov-cl1 trans-04">
+								Profile 
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						GET IN TOUCH
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						Near by Arya college of Engineering and IT
+					</p>
+
+					
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					
+					<h3 class="stext-301 cl0 p-b-30">
+						kaluram Kharra
+					</h3>
+					
+					<div class="p-t-27">
+						<a href="https://www.facebook.com/kaluram.kharra" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="zmdi zmdi-facebook"></i>
+						</a>
+
+						<a href="https://www.instagram.com/kaluramkharra/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="zmdi zmdi-instagram"></i>
+						</a>
+
+						<a href="https://www.linkedin.com/in/kaluram-kharra/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="zmdi zmdi-linkedin"></i>
+						</a>
+						<a href="https://github.com/kaluramkharra" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="zmdi zmdi-github"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				
+
+				<p class="stext-107 cl6 txt-center">Copyright 2021 All rights reserved | KAlURAM KHARRA
+				</p>
+			</div>
+		</div>
+	</footer>
+
+
+<!--===============================================================================================-->	
+<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/slick/slick.min.js"></script>
+	<script src="/static/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e){
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(function(){
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+	
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/js/main.js"></script>
+
+
+
+
+
+
+    {% block js %} {% endblock %}
+
+</body>

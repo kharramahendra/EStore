@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load socialaccount %}
+	{% providers_media_js %}
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<link rel="stylesheet" type="text/css" href="/static/fonts/iconic/css/material-design-iconic-font.min.css">
+
+</head>
+<body>
+    <div class="wrap">
+        
+        <button class="btn-special"><a href="{% provider_login_url "google" %}" class="button" style="text-decoration: none;"><i class="zmdi zmdi-google"></i> Login with Google </a></button>
+      </div>
+    <script>
+
+    </script>
+</body>
+</html>

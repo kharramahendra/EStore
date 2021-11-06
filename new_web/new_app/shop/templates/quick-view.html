@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+
+{% block title%}{{product.product_name}}{% endblock %}
+{% load cart %}
+
+{% load humanize %}
+
+{% block head %}
+<style>
+p {
+	margin-bottom: 0px;
+	font-size: 15px;
+	font-weight: 400;
+	color: #7a7a7a;
+	line-height: 30px;
+}
+a {
+	text-decoration: none!important;
+}
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
+.main-button {
+	
+	font-size: 13px;
+	font-weight: 700;
+  color: rgb(184, 12, 92);
+	text-transform: uppercase;
+	transition: all .3s;
+}
+
+.main-button a:hover {
+	background-color: #fb9857;
+}
+
+.heading-page {
+	padding-top: 110px;
+}
+
+.page-heading {
+	margin: 0px 10px;
+	padding: 120px 0px;
+	text-align: left;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url(../images/heading-bg.jpg);
+}
+
+.page-heading .text-content h4 {
+	color: #f48840;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: 900;
+	letter-spacing: 0.5px;
+	margin-bottom: 15px;
+}
+
+.page-heading .text-content h2 {
+	color: #fff;
+	font-size: 36px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+
+.blog-posts .comments {
+	margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.blog-posts .comments ul li {
+	display: inline-block;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #eee;
+}
+
+
+
+.blog-posts .comments ul li:last-child {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	border-bottom: none;
+}
+
+.blog-posts .comments ul li .author-thumb {
+	display: inline;
+	float: left;
+}
+
+.blog-posts .comments ul li .author-thumb img {
+	max-width: 50px;
+	display: inline;
+  border-radius: 50%;
+    
+}
+
+.blog-posts .comments ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-posts .comments ul li .right-content {
+	margin-left: 60px;
+}
+
+.blog-posts .comments ul li .right-content h4 {
+	color: #20232e;
+	font-size: 15px;
+	font-weight: 800;
+	letter-spacing: 0.5px;
+}
+
+.blog-posts .comments ul li .right-content h4 span {
+	font-size: 14px;
+    color: rgb(243, 104, 40);
+	font-weight: 400;
+	letter-spacing: 0.25px;
+	margin-left: 20px;
+}
+
+.blog-posts .submit-comment {
+	margin-top: 60px;
+}
+
+.blog-posts .submit-comment input {
+	width: 100%;
+	height: 46px;
+	border: 1px solid #eee;
+	font-size: 13px;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #7a7a7a;
+	outline: none;
+	padding: 0px 15px;
+	margin-bottom: 30px;
+}
+
+textarea {
+	width: 100%;
+}
+
+
+
+.blog-posts .submit-comment input::placeholder,
+.blog-posts .submit-comment textarea::placeholder {
+	color: #aaa;
+}
+
+.blog-posts .submit-comment button {
+	display: inline-block;
+	background-color: #f48840;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 12px 20px;
+	text-transform: uppercase;
+	transition: all .3s;
+	border: none;
+	outline: none;
+}
+
+.blog-posts .submit-comment button:hover {
+	background-color: #fb9857;
+}
+
+
+
+</style>
+{% endblock %}
+
+
+
+
+{% block body %}
+<div class="container">
+    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+        <div class="row">
+            <div class="col-md-6 col-lg-7 p-b-30">
+                <div class="p-l-25 p-r-30 p-lr-0-lg">
+                    <div class="wrap-slick3 flex-sb flex-w">
+                        <div class="wrap-slick3-dots"></div>
+                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                        <div class="slick3 gallery-lb">
+                            <div class="item-slick3" data-thumb="/media/{{product.image}}">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="/media/{{product.image}}" id='imagepr{{product.image}}' alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn4 trans-04" href="/media/{{product.image}}">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="/media/{{product.image}}">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="/media/{{product.image}}" alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn4 trans-04" href="/media/{{product.image}}">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="/media/{{product.image}}">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="/media/{{product.image}}" alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn4 trans-04" href="/media/{{product.image}}">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-5 p-b-30">
+                <div class="p-r-50 p-t-5 p-lr-0-lg">
+                    <h4 class="mtext-105 cl2 js-name-detail p-b-14" id='namepr{{product.product_name}}'>
+                        {{product.product_name}}
+                    </h4>
+
+                    <span class="mtext-106 cl2" id="pricepr{{product.product_id}}">
+                        ₹{{product.price}}
+                    </span>
+
+                    <p class="stext-102 cl3 p-t-23">
+                        {{product.desc}}
+                    </p>
+                    
+                    <!--  -->
+                    <form action="/product/{{product.product_id}}" method="POST">
+                        {% csrf_token %}
+                        <div class="p-t-33">
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-203 flex-c-m respon6">
+                                    Size
+                                </div>
+
+                                <div class="size-204 respon6-next">
+                                    <div class="rs1-select2 bor8 bg0">
+                                        <select class="js-select2" name="size" id="size">
+                                            {% for size in sizes %}
+                                            <option value="{{size}}">{{size}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-203 flex-c-m respon6">
+                                    Color
+                                </div>
+
+                                <div class="size-204 respon6-next">
+                                    <div class="rs1-select2 bor8 bg0">
+                                        <select class="js-select2" name="color" id="color">      
+                                            {% for color in colors %}
+                                            <option value="{{color}}">{{color}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-204 flex-w flex-m respon6-next">
+                                    {% if cart_item %}
+                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                        <form action="/product/{{product.product_id}}" method="POST">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="operation" value="0">
+                                            <input hidden type="text" name="product" value="{{product.product_id}}">
+                                            <button class="btn btn-plus cl8 hov-btn4 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-minus"></i>
+                                            </button>
+                                        </form>
+                                        <input class="mtext-104 cl3 txt-center num-product" type="number"  value="{{qty}}">
+                                        <form action="/product/{{product.product_id}}" method="POST">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="operation" value="1">
+                                            <input hidden type="text" name="product" value="{{product.product_id}}">
+                                            <button type="submit" class="btn btn-plus cl8 hov-btn4 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-plus" style="padding-left: 5px; padding-right: 5px;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    {% else%}
+                                    <input hidden type="text" name="operation" value="2">
+                                    <input hidden type="text" name="product" value="{{product.product_id}}">
+                                    <button type="submit" class="flex-c-m btn-special">
+                                        Add to Cart
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>	
+                        </div>
+                    </form>
+
+                    <!--  -->
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="blog-posts grid-system">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="sidebar-item comments">
+                  <div class="sidebar-heading">
+                    <h2 style="font-size: 18px;
+                    text-transform: uppercase;
+                    font-weight: 900;
+                    letter-spacing: 0.5px;
+                    color: #20232e;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 15px;
+                    margin-bottom: 25px;">Customer's Reviews and Comments</h2>
+                  </div>
+
+
+                  <div class="content">
+                    <ul>
+                        <li>
+                          {% if user.is_authenticated %}
+                          <form action="/comment/" method="POST">
+                            {% csrf_token %}
+                            <div class="author-thumb">
+                              <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="">
+                            </div>
+                            <div class="right-content">
+                              <h4>{{ user.socialaccount_set.all.0.extra_data.name }}<span>Now</span></h4>
+                              
+                                    <fieldset>
+                                      <textarea name="message" rows="3" id="message" placeholder="Type your comment" required=""></textarea>
+                                    </fieldset>
+                                    <input type="hidden" name="proId" value="{{product.product_id}}">
+                                    <fieldset> <button type="submit" id="form-submit" class="main-button">Submit</button>
+                                    </fieldset>
+                                  
+                                </div>
+                              </form>
+                              {% else %}
+                              login to comment
+                              {% endif %}
+                          </li>
+                    {% for comment in comments %}
+                      <li>
+                        <div class="author-thumb">
+                          <img src="{{ comment.user.socialaccount_set.all.0.get_avatar_url }}" alt="">
+                        </div>
+                        <div class="right-content">
+                          <h4>{{ comment.user.socialaccount_set.all.0.extra_data.name }}<span>{{comment.timestamp| naturaltime}}</span></h4>
+                          <p>{{comment.comment}}</p>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block js %}
+
+{% endblock %}
